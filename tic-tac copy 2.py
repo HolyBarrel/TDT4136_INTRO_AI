@@ -4,6 +4,8 @@ State = tuple[int, list[list[int | None]]]  # Tuple of player (whose turn it is)
                                             # and board
 Action = tuple[int, int]  # Where to place the player's piece
 
+# Version of the game that uses alpha-beta pruning and attempts to solve the 
+# problem with avoiding stupid moves for player 1
 class Game:
     def initial_state(self) -> State:
         return (0, [[None, None, None], [None, None, None], [None, None, None]])

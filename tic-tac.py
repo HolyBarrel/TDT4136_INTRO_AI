@@ -6,6 +6,9 @@ State = tuple[int, list[list[int | None]]]  # Tuple of player (whose turn it is)
                                             # and board
 Action = tuple[int, int]  # Where to place the player's piece
 
+# Version of the game that uses alpha-beta pruning and also prints the minimax search result
+# The search methods are compared, in terms of time taken to find the solution
+
 class Game:
     def initial_state(self) -> State:
         return (0, [[None, None, None], [None, None, None], [None, None, None]])
