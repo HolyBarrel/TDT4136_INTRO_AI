@@ -1,7 +1,4 @@
 import math
-
-
-import math
 def minimax_search(game,state, competitive = False):
     player = game.to_move(state)
     if competitive:
