@@ -1,5 +1,5 @@
 import math
-from minimax_search import minimax_search
+from search_algortihms import minimax_search
 
 State = tuple[int, list[str | int]]  # Tuple of player (whose turn it is),
                                      # and the buckets (as str)
