@@ -18,11 +18,18 @@ class Game:
     def actions(self, state: State) -> list[Action]:
         _, board = state
         actions = []
+
         for row in range(3):
             for col in range(3):
                 if board[row][col] is None:
+                    next_board = deepcopy(board)
+                    next_board[row][col] = self.to_move(state)
+                    if self.is_winner((self.to_move(state), next_board), self.to_move(state)):
+                        return [(row, col)]
                     actions.append((row, col))
+                    
         return actions
+
 
     def result(self, state: State, action: Action) -> State:
         _, board = state
