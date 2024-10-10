@@ -1,4 +1,5 @@
 from copy import deepcopy
+from search_algortihms import alpha_beta_search
 
 State = tuple[int, list[list[int | None]]]  # Tuple of player (whose turn it is),
                                             # and board
@@ -123,38 +124,7 @@ class Game:
             print(f'It is P{self.to_move(state)+1}\'s turn to move')
 
 
-def alpha_beta_search(game, state):
-    player = game.to_move(state)
-    value, move = max_value(game, state, float('-inf'), float('inf'))
-    return move
 
-def max_value(game, state, alpha, beta):
-    if game.is_terminal(state):
-        return game.utility(state, 0), None
-    v = float('-inf')
-    for action in game.actions(state):
-        v2, _ = min_value(game, game.result(state, action), alpha, beta)
-        if v2 > v:
-            v = v2
-            move = action
-        if v >= beta:
-            return v, move
-        alpha = max(alpha, v)
-    return v, move
-
-def min_value(game, state, alpha, beta):
-    if game.is_terminal(state):
-        return game.utility(state, 0), None
-    v = float('inf')
-    for action in game.actions(state):
-        v2, _ = max_value(game, game.result(state, action), alpha, beta)
-        if v2 < v:
-            v = v2
-            move = action
-        if v <= alpha:
-            return v, move
-        beta = min(beta, v)
-    return v, move
 
 
 if __name__ == '__main__':
