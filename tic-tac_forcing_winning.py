@@ -19,6 +19,9 @@ class Game:
         _, board = state
         actions = []
 
+
+        # Code was changed here to force players to make a winning move if possible
+        # This is done by checking if the player can win in the next move, and if so.
         for row in range(3):
             for col in range(3):
                 if board[row][col] is None:
@@ -55,46 +58,6 @@ class Game:
         if self.is_winner(state, (self.to_move(state) + 1) % 2):
             return True
         return all(board[row][col] is not None for row in range(3) for col in range(3))
-
-    def heuristic(state: State, player: int) -> int:
-        _, board = state
-        score = 0
-
-        # Define the opponent
-        opponent = (player + 1) % 2
-
-        # Prioritize center (1, 1)
-        if board[1][1] == player:
-            score += 3
-        elif board[1][1] == opponent:
-            score -= 3
-
-        # Prioritize corners (0,0), (0,2), (2,0), (2,2)
-        corners = [(0, 0), (0, 2), (2, 0), (2, 2)]
-        for corner in corners:
-            row, col = corner
-            if board[row][col] == player:
-                score += 2
-            elif board[row][col] == opponent:
-                score -= 2
-
-        # Standard row/column/diagonal counting (as before)
-        for row in range(3):
-            if board[row].count(opponent) == 0:  # If opponent isn't blocking
-                score += board[row].count(player)  # Reward based on how many of player's marks
-        for col in range(3):
-            col_values = [board[row][col] for row in range(3)]
-            if col_values.count(opponent) == 0:
-                score += col_values.count(player)
-
-        diag1 = [board[i][i] for i in range(3)]
-        if diag1.count(opponent) == 0:
-            score += diag1.count(player)
-        diag2 = [board[i][2 - i] for i in range(3)]
-        if diag2.count(opponent) == 0:
-            score += diag2.count(player)
-
-        return score
 
 
 
