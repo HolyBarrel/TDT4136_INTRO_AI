@@ -66,7 +66,7 @@ def main():
         game.print(state)
 
     print()
-    print("No Competitive version of the bucket game")
+    print("Non-Competitive version of the bucket game")
     print()
     game = Game()
     state = game.initial_state()

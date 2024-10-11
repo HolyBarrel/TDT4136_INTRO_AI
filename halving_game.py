@@ -63,14 +63,14 @@ def main():
         game.print(state)
 
     print()
-    print ("No Competitive version of the halving game")
+    print ("Non-Competitive version of the halving game")
     print()
     game = Game(5)
     state = game.initial_state()
     game.print(state)
     while not game.is_terminal(state):
         player = game.to_move(state)
-        action = minimax_search(game, state, True)
+        action = minimax_search(game, state)
         print(f'Player {player+1} chooses {action}')
         assert action is not None
         state = game.result(state, action)
