@@ -1,11 +1,15 @@
 from copy import deepcopy
+from search_algortihms import minimax_search
 from search_algortihms import alpha_beta_search
+import time
 
 State = tuple[int, list[list[int | None]]]  # Tuple of player (whose turn it is),
                                             # and board
 Action = tuple[int, int]  # Where to place the player's piece
 
-# Competetive version of the game that uses alpha-beta pruning
+# Version of the game that uses alpha-beta pruning and also prints the minimax search result
+# The search methods are compared, in terms of time taken to find the solution
+
 class Game:
     def initial_state(self) -> State:
         return (0, [[None, None, None], [None, None, None], [None, None, None]])
@@ -81,11 +85,32 @@ class Game:
 
 
 if __name__ == '__main__':
+    print('Tic-tac-toe with alpha-beta pruning')
     game = Game()
     state = game.initial_state()
+    start_time = time.time()
     while not game.is_terminal(state):
         game.print(state)
         action = alpha_beta_search(game, state, True)
         state = game.result(state, action)
+    end_time = time.time()
+    elapsed_time_ab = end_time - start_time
     game.print(state)
+    
+
+
+    print('Tic-tac-toe with minimax, competitive version')
+    game = Game()
+    state = game.initial_state()
+    start_time = time.time()
+    while not game.is_terminal(state):
+        game.print(state)
+        action = minimax_search(game, state, True)
+        state = game.result(state, action)
+    end_time = time.time()
+    elapsed_time_minimax = end_time - start_time
+    game.print(state)
+    
+    print(f'Minimax took {elapsed_time_minimax:.4f} seconds')
+    print(f'Alpha-Beta Pruning took {elapsed_time_ab:.4f} seconds\n')
 
